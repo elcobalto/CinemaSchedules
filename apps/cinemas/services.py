@@ -1,5 +1,7 @@
-from bs4 import BeautifulSoup
 import requests
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
 CINEPOLIS_LA_REINA_URL = (
     "https://cinehoyts.cl/cartelera/santiago-oriente/cinepolis-la-reina"
@@ -10,9 +12,11 @@ CINEMARK_ALTO_LAS_CONDES_URL = (
 
 
 def scrapp_cinehoyts_schedule(hoyts_link: str = CINEPOLIS_LA_REINA_URL):
-    page = requests.get(hoyts_link)
-    soup = BeautifulSoup(page.content, "html.parser")
-    print(soup)
+    driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver.get(hoyts_link)
+    batman = driver.find_element("Batman")
+    print(batman)
+    driver.close()
 
 
 def scrapp_cinemark_schedule(hoyts_link: str = CINEMARK_ALTO_LAS_CONDES_URL):
