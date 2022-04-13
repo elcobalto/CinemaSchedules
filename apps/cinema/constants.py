@@ -1,3 +1,7 @@
+EL_BIOGRAFO = "https://elbiografo.cl/cartelera/"
+
+CENTRO_ARTE_ALAMEDA = "https://centroartealameda.cl/events/categoria/cine/"
+
 CINEHOYTS_VALPARAISO_URL = (
     "https://cinehoyts.cl/cartelera/norte-y-centro-de-chile/valparaiso"
 )
@@ -101,3 +105,7 @@ MAIN_CINEMARK_CINEMAS = [
     CINEMARK_MALL_MARINA,
     CINEMARK_PORTAL_NUNOA_URL,
 ]
+
+CINEPLANET = "https://www.cineplanet.cl/peliculas"
+
+CINE_ARTE_NORMANDIE = "https://normandie.cl/cartelera/"
