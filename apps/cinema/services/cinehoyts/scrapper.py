@@ -14,11 +14,11 @@ def _get_raw_movie_list(page: str) -> List[str]:
     return page.split("originalTitle=")
 
 
-def _get_cinema(raw_movie: str) -> str:
+def _get_cinema(raw_movie: str, previous_cinema: str) -> str:
     try:
         return raw_movie.split('data-list="')[1].split('" data-moviekey="')[0]
     except IndexError:
-        return ""
+        return previous_cinema
 
 
 def _get_movie(raw_movie: str) -> str:
@@ -34,12 +34,12 @@ def scrapp_schedules(cinema: Cinema = CINEPOLIS_LA_REINA) -> None:
     driver.get(cinema.link)
     page = driver.page_source
     raw_movie_list = _get_raw_movie_list(page)
-    next_cinema_keyword = _get_cinema(raw_movie_list[0])
+    next_cinema_keyword = _get_cinema(raw_movie_list[0], "")
     for raw_movie in raw_movie_list[1:]:
         movie = _get_movie(raw_movie)
         print(next_cinema_keyword)
         current_cinema = Cinema.objects.get(keyword=next_cinema_keyword)
         schedule = _get_schedule(raw_movie)
         save_movie_and_schedule(movie, current_cinema, schedule)
-        next_cinema_keyword = _get_cinema(raw_movie)
+        next_cinema_keyword = _get_cinema(raw_movie, next_cinema_keyword)
     driver.close()
