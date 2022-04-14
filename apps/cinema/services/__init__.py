@@ -1,20 +1,19 @@
-from typing import Dict
-
 from apps.cinema.constants import MAIN_CINEMARK_CINEMAS, MAIN_CINEPOLIS_CINEMAS
-from apps.cinema.services import (biografo, centro_arte_alameda, cinehoyts,
-                                  cinemark, normandie)
+from apps.cinema.models import Cinema
+from apps.cinema.services.biografo import scrapper as biografo_scrapper
+from apps.cinema.services.centro_arte_alameda import \
+    scrapper as alameda_scrapper
+from apps.cinema.services.cinehoyts import scrapper as cinehoyts_scrapper
+from apps.cinema.services.cinemark import scrapper as cinemark_scrapper
+from apps.cinema.services.normandie import scrapper as normandie_scrapper
 
 
-def scrapp_every_cinema() -> Dict[str, str]:
-    movies = {}
-    movies = biografo.scrapper(movies=movies)
-    movies = centro_arte_alameda.scrapper(movies=movies)
-    movies = {m: movies[m] for m in sorted(movies, key=movies.get, reverse=True)}
+def scrapp_every_cinema():
+    biografo_scrapper.scrapp_schedules()
+    # alameda_scrapper.scrapp_schedules()
     for cinema_url in MAIN_CINEPOLIS_CINEMAS:
-        movies = cinehoyts.scrapper(cinema_url, movies)
+        cinema = Cinema.objects.get(link=cinema_url)
+        cinehoyts_scrapper.scrapp_schedules(cinema)
     for cinema_url in MAIN_CINEMARK_CINEMAS:
-        movies = cinemark.scrapper(cinema_url, movies)
-    movies = normandie.scrapper(movies=movies)
-    movies = {m: movies[m] for m in sorted(movies, key=movies.get, reverse=True)}
-    print(movies)
-    return movies
+        cinemark_scrapper.scrapp_schedules(cinema_url)
+    normandie_scrapper.scrapp_schedules()
