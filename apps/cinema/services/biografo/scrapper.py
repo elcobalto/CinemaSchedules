@@ -4,7 +4,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
 from apps.cinema.constants import EL_BIOGRAFO
-from apps.cinema.models import Cinema, Schedule
+from apps.cinema.models import Cinema
 from apps.cinema.utils import save_movie_and_schedule
 
 

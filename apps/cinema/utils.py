@@ -2,7 +2,7 @@ from datetime import datetime
 from difflib import SequenceMatcher
 from typing import Dict, Tuple
 
-from apps.cinema.models import Schedule
+from apps.cinema.models import Showing
 from apps.movie.models import Movie
 
 
@@ -56,7 +56,7 @@ def save_movie_and_schedule(movie, current_cinema, schedule, week=None):
     else:
         movie_object = Movie(title=movie, release_date=today)
         movie_object.save()
-    new_schedule = Schedule(
+    new_schedule = Showing(
         movie=movie_object,
         cinema=current_cinema,
         showing_datetime=schedule,

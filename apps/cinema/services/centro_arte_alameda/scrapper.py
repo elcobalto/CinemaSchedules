@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Dict, List, Tuple
+from typing import List, Tuple
 
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager

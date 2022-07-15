@@ -4,7 +4,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
 from apps.cinema.constants import CINEPOLIS_LA_REINA_URL
-from apps.cinema.models import Cinema, Schedule
+from apps.cinema.models import Cinema, Showing
 from apps.cinema.utils import save_movie_and_schedule
 
 CINEPOLIS_LA_REINA = Cinema.objects.get(link=CINEPOLIS_LA_REINA_URL)
